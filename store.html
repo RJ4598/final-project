@@ -38,9 +38,9 @@
       $.ajax({url: "product_data.json", success: function(result) {
           let resultContent = "";
           for (let product of result.productlist) {
-            resultContent += "<div class=\"card \">\n" +
+            resultContent += "<div class=\"card col\" style=\"background-color: grey\">\n" +
                     "<img class=\"card-img-top text-center\" src="+ product.img +">" +
-                    "  <div class=\"card-body\" style=\"width: auto; background-color: grey\">\n" +
+                    "  <div class=\"card-body\">\n" +
                     "    <h5 class=\"card-title\">" + product.title + "</h5>\n" +
                     "    <p class=\"card-text\">Price: $" + product.price + "</p>\n" +
                     "    <p class=\"card-text\">Description: " + product.description  + "</p>\n" +
@@ -197,8 +197,11 @@
       </div>
 
       <div class="service_container">
-        <div class="card-deck">
-          <div id="results" class="row mt-3 "></div>
+          <div id="results" class="card-columns"></div>
+
+
+
+
           <!---<div class="card">
             <img class="card-img-top text-center" src="images/s-1.png">
             <div class="card-body" style="background-color: #0f3e68">
@@ -270,7 +273,6 @@
 <!--          Read More-->
 <!--        </a>-->
 <!--      </div>-->
-    </div>
     </div>
 
   </section>
