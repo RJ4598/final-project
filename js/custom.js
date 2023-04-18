@@ -6,6 +6,3 @@ function getYear() {
 }
 
 getYear();
-$(document).ready(function() {
-    $('#cartModal').modal('show');
-});
