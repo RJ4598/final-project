@@ -2,5 +2,5 @@
 
 # change log:
 * [added website](https://github.com/RJ4598/final-project/commit/48132e4f82a3936732b76dde7b257c74d11f638a)
-* [fix product list in the store section]()
-* [added files that intellij made]()
+* [fix product list in the store section](https://github.com/RJ4598/final-project/commit/121ecafd15588413541b252eaede5c5d1e18e515)
+* [added files that intellij made](https://github.com/RJ4598/final-project/commit/eb8378b24fde34116c6efe25e38ec3f6cb2a24b4)
