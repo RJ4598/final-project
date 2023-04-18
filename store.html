@@ -28,15 +28,17 @@
   <!-- responsive style -->
   <link href="css/responsive.css" rel="stylesheet" />
   <script type="text/javascript">
-    let cart = [];
+    let cart = []; // id of the item, quantity, price
     let cart_total = [];
 
 
     $(document).ready(function() {
-      console.log("Browser is loaded.");
+      refreshStore();
+    });
 
+    function refreshStore() {
       $.ajax({url: "product_data.json", success: function(result) {
-          let resultContent = "";
+      let resultContent = "";
           for (let product of result.productlist) {
             resultContent += "<div class=\"card col\" style=\"background-color: grey\">\n" +
                     "<img class=\"card-img-top text-center\" src="+ product.img +">" +
@@ -44,16 +46,82 @@
                     "    <h5 class=\"card-title\">" + product.title + "</h5>\n" +
                     "    <p class=\"card-text\">Price: $" + product.price + "</p>\n" +
                     "    <p class=\"card-text\">Description: " + product.description  + "</p>\n" +
-                    "    <a href=\"#\" class=\"btn btn-primary\">add "+ product.title +" to the cart</a>\n" +
+                    "    <button id=\"pizza_button_" + product.id + "\" onclick=\"addToCart(" + product.id + "," + product.price + ")\" href=\"#\" class=\"btn btn-primary\">" + getCartLabel(product.id, product.title) +"</button>\n" +
                     "  </div>\n" +
                     "</div>"
           }
           $("#results").html(resultContent);
           console.log(results)
         }});
+    }
 
+    function getCartLabel(productId, productTitle) {
+      let productItem = cart.find(x => x.id == productId);
+      if (productItem) {
+        return "Added to Cart";
+      }
+      return "Add " + productTitle + " to Cart";
+    }
 
-    });
+    function addToCart(productId, productPrice) {
+      cart.push({
+        id: productId,
+        quantity: 1,
+        price: productPrice
+      });
+      refreshStore();
+    }
+
+    function getTotal() {
+      let sum = 0;
+      cart.forEach(item => {
+        sum = sum + item.price * item.quantity;
+      });
+      return "$" + sum;
+    }
+
+    function closeCart() {
+      refreshStore();
+    }
+
+    function deleteItem(productId) {
+      let index = cart.findIndex(x => x.id == productId);
+      cart.splice(index, 1);
+      openCart();
+    }
+
+    function changeQuantity(productId) {
+      let productItem = cart.find(x => x.id == productId);
+      productItem.quantity = parseInt($('#quantity_' + productId).val());
+      openCart();
+    }
+
+    function openCart() {
+      $('#shopping-cart-table > tbody').html('');
+      $.ajax({url: "product_data.json", success: function(result) {
+          let resultContent = "";
+          for (let item of cart) {
+            let productItem = result.productlist.find(x => x.id == item.id);
+            $('#shopping-cart-table tbody').append('<tr><td class="w-25">' +
+                             '<img src="' + productItem.img + '" class="img-fluid img-thumbnail">' +
+                             '</td>' +
+                             '<td>' + productItem.title +'</td>' +
+                             '<td>$' + productItem.price + '</td>' +
+                             '<td class="qty"><input onchange="changeQuantity(' + productItem.id + ')" type="text" class="form-control" id="quantity_' + productItem.id + '" value="' + item.quantity +'"></td>' +
+                             '<td>$' + (productItem.price * item.quantity) +'</td>' +
+                             '<td>' +
+                             '<a href="#" class="btn btn-danger btn-sm">' +
+                                '<i class="fa-solid fa-x" onclick="deleteItem(' + productItem.id + ')"></i>'+
+                              '</a>' +
+                             '</td>' +
+                          '</tr>');
+          }
+          $("#results").html(resultContent);
+          $("#total").text(getTotal());
+          console.log(results)
+        }});
+    }
+
     function totalprice() {
       $.ajax({url: "product_data.json", success: function(result) {
         let carttotal = [];
@@ -116,7 +184,7 @@
             <div class="quote_btn-container ">
                 <!-- start of cart button -->
                 <div class="container">
-                  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#cartModal" onclick="totalprice()">
+                  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#cartModal" onclick="openCart()">
                     <i class="fa-solid fa-cart-shopping"></i>
                     View Cart
                   </button>
@@ -129,12 +197,12 @@
                         <h5 class="modal-title" id="exampleModalLabel" style="color: white">
                           Your Shopping Cart
                         </h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white">
+                        <button onclick="closeCart()" type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white">
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
                       <div class="modal-body">
-                        <table class="table table-image" style="color: white">
+                        <table id="shopping-cart-table" class="table table-image" style="color: white">
                           <thead>
                           <tr>
                             <th scope="col"></th>
@@ -146,42 +214,14 @@
                           </tr>
                           </thead>
                           <tbody>
-                          <tr>
-                            <td class="w-25">
-                              <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/vans.png" class="img-fluid img-thumbnail" alt="Sheep">
-                            </td>
-                            <td>Vans Sk8-Hi MTE Shoes</td>
-                            <td>89$</td>
-                            <td class="qty"><input type="text" class="form-control" id="input1" value="2"></td>
-                            <td>178$</td>
-                            <td>
-                              <a href="#" class="btn btn-danger btn-sm">
-                                <i class="fa-solid fa-x"></i>
-                              </a>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="w-25">
-                              <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/vans.png" class="img-fluid img-thumbnail" alt="Sheep">
-                            </td>
-                            <td>#2</td>
-                            <td>100$</td>
-                            <td class="qty"><input type="text" class="form-control" id="input1" value="2"></td>
-                            <td>178$</td>
-                            <td>
-                              <a href="#" class="btn btn-danger btn-sm">
-                                <i class="fa-solid fa-x"></i>
-                              </a>
-                            </td>
-                          </tr>
                           </tbody>
                         </table>
                         <div class="d-flex justify-content-end">
-                          <h5>Total: <span class="price text-success">89$</span></h5>
+                          <h5>Total: <span id="total" class="price text-success"></span></h5>
                         </div>
                       </div>
                       <div class="modal-footer border-top-0 d-flex justify-content-between">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button onclick="closeCart()" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-success">Checkout</button>
                       </div>
                     </div>
