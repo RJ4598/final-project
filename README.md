@@ -7,3 +7,4 @@
 * [added id to json file and remove <a> from cart](https://github.com/RJ4598/final-project/commit/23aaa9696c2730454dc4909587f8e1e7874e3e02)
 * [stop cart model from popping up](https://github.com/RJ4598/final-project/commit/7c96a425f6d99709b210174b103350eaf24f71df)
 * [remove a model from index.html]()
+* [fix font awesome]()
