@@ -9,4 +9,4 @@
 * [remove a model from index.html](https://github.com/RJ4598/final-project/commit/60463e1b5647c04d6d94342cf0972be721c2b538)
 * [fix font awesome](https://github.com/RJ4598/final-project/commit/7ac5cc4f7ffd4fa46a8caef3c49031958723fed7)
 * [added new images for product list](https://github.com/RJ4598/final-project/commit/8ad0395b590d2f8d61c7f5c3a13d6c7a9e8524cd)
-* [added function to the cart so it will work ]()
+* [added function to the cart so it will work ](https://github.com/RJ4598/final-project/commit/2b63cba63c4f15241a462692c5bda945cd35d17d)
