@@ -8,3 +8,4 @@
 * [stop cart model from popping up](https://github.com/RJ4598/final-project/commit/7c96a425f6d99709b210174b103350eaf24f71df)
 * [remove a model from index.html](https://github.com/RJ4598/final-project/commit/60463e1b5647c04d6d94342cf0972be721c2b538)
 * [fix font awesome](https://github.com/RJ4598/final-project/commit/7ac5cc4f7ffd4fa46a8caef3c49031958723fed7)
+* [added new images for product list]()
