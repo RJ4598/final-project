@@ -38,17 +38,25 @@
 
     function refreshStore() {
       $.ajax({url: "product_data.json", success: function(result) {
-      let resultContent = "";
+          let resultContent = "";
           for (let product of result.productlist) {
             resultContent += "<div class=\"card col\" style=\"background-color: grey\">\n" +
                     "<img class=\"card-img-top text-center\" src="+ product.img +">" +
                     "  <div class=\"card-body\">\n" +
                     "    <h5 class=\"card-title\">" + product.title + "</h5>\n" +
                     "    <p class=\"card-text\">Price: $" + product.price + "</p>\n" +
-                    "    <p class=\"card-text\">Description: " + product.description  + "</p>\n" +
-                    "    <button id=\"pizza_button_" + product.id + "\" onclick=\"addToCart(" + product.id + "," + product.price + ")\" href=\"#\" class=\"btn btn-primary\">" + getCartLabel(product.id, product.title) +"</button>\n" +
-                    "  </div>\n" +
-                    "</div>"
+                    "    <p class=\"card-text\">Description: " + product.description  + "</p>\n";
+            let cartLabel = getCartLabel(product.id, product.title);
+            if (cartLabel == "Added to Cart") {
+              resultContent += "<button disabled id=\"pizza_button_" + product.id + "\" href=\"#\" class=\"btn btn-primary\">" + cartLabel +"</button>\n" +
+                      "  </div>\n" +
+                      "</div>";
+            } else {
+              resultContent += "<button id=\"pizza_button_" + product.id + "\" onclick=\"addToCart(" + product.id + "," + product.price + ")\" href=\"#\" class=\"btn btn-primary\">" + cartLabel +"</button>\n" +
+                      "  </div>\n" +
+                      "</div>";
+            }
+
           }
           $("#results").html(resultContent);
           console.log(results)
@@ -139,6 +147,15 @@
 
 
     }
+    function submitForm() {
+      $("#submission-form").html("<div><label style=\"font-size: 2rem\">Thanks! We will contact you soon.</label></div>");
+    }
+    function submitCart() {
+      alert("Your order has been placed");
+      cart = [];
+      cart_total = [];
+      refreshStore();
+    }
 
 
   </script>
@@ -154,8 +171,12 @@
         <nav class="navbar navbar-expand-lg custom_nav-container ">
           <a class="navbar-brand" href="index.html">
             <span>
-              <img src="images/logov2.png" style="width: 100px; height: 100px" >
+              <img src="images/pizza%20logo.png" style="width: 100px; height: 100px" >
             </span>
+            <br/>
+            <label style="color:white; font-size: 16px;">Always Organic!</label>
+            <br/>
+            <label style="color:white; font-size: 16px;">Always Tasty!</label>
           </a>
           </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -219,7 +240,7 @@
                       </div>
                       <div class="modal-footer border-top-0 d-flex justify-content-between">
                         <button onclick="closeCart()" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-success">Checkout</button>
+                        <button onclick="submitCart()" type="button" class="btn btn-success" data-dismiss="modal">Checkout</button>
                       </div>
                     </div>
                   </div>
@@ -237,12 +258,6 @@
   <section class="service_section layout_padding">
     <div class="container-fluid">
       <div class="heading_container">
-        <h2>
-          Store page
-        </h2>
-        <p>
-          consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </p>
       </div>
 
       <div class="service_container">
@@ -267,13 +282,13 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-6 col-md-8 mx-auto">
-            <form>
+            <form id="submission-form" onsubmit="submitForm();return false">
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <input type="text" class="form-control" id="inputName4" placeholder="Name ">
                 </div>
                 <div class="form-group col-md-6">
-                  <input type="email" class="form-control" id="inputEmail4" placeholder="Email id">
+                  <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
                 </div>
 
               </div>
@@ -303,6 +318,7 @@
     <section class="info_section layout_padding2">
       <div class="container">
         <div class="row">
+          <div class="col-md-3"></div>
           <div class="col-md-3">
             <div class="info_logo">
               <h3>
@@ -331,33 +347,7 @@
               </ul>
             </div>
           </div>
-          <div class="col-md-3">
-            <div class="info_form ">
-              <h4>
-                NEWSLETTER
-              </h4>
-              <form action="">
-                <input type="email" placeholder="Enter your email">
-                <button>
-                  Subscribe
-                </button>
-              </form>
-              <div class="social_box">
-                <a href="">
-                  <img src="images/info-fb.png" alt="">
-                </a>
-                <a href="">
-                  <img src="images/info-twitter.png" alt="">
-                </a>
-                <a href="">
-                  <img src="images/info-linkedin.png" alt="">
-                </a>
-                <a href="">
-                  <img src="images/info-youtube.png" alt="">
-                </a>
-              </div>
-            </div>
-          </div>
+          <div class="col-md-3"></div>
         </div>
       </div>
     </section>
