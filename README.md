@@ -10,3 +10,6 @@
 * [fix font awesome](https://github.com/RJ4598/final-project/commit/7ac5cc4f7ffd4fa46a8caef3c49031958723fed7)
 * [added new images for product list](https://github.com/RJ4598/final-project/commit/8ad0395b590d2f8d61c7f5c3a13d6c7a9e8524cd)
 * [added function to the cart so it will work ](https://github.com/RJ4598/final-project/commit/2b63cba63c4f15241a462692c5bda945cd35d17d)
+* [added website name](https://github.com/RJ4598/final-project/commit/1857550e4f967ae7b067450a5e6f0d164648e3fa)
+* [added logo and name. removed about page. remove stuff that is not needded](https://github.com/RJ4598/final-project/commit/a32d63c0cc00f9958989ab14d5d2efd17486130b)
+* [added drinks and alert message](https://github.com/RJ4598/final-project/commit/458d4b17fdf0ca6bd378f366a515420f9ad8e189)
